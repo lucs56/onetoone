@@ -5,44 +5,41 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "client")
-public class Client {
+@Table(name = "orders")
+public class Order {
 
     @Id
     @SequenceGenerator(
-            name = "client_sequence",
-            sequenceName = "client_sequence",
+            name = "order_sequence",
+            sequenceName = "order_sequence",
             allocationSize = 1,
-            initialValue = 999
+            initialValue = 1000
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "client_sequence"
+            generator = "order_sequence"
     )
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "order_details")
+    private String orderDetails;
 
-    @OneToOne
-    private User user;
-
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Order> orders;
+    @ManyToOne
+    @JoinColumn(name = "client_id", nullable = false)
+    private Client client;
 
     // Sobrescribir método toString()
     @Override
     public String toString() {
-        return "Client{" +
+        return "Order{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", orderDetails='" + orderDetails + '\'' +
                 // Puedes agregar más campos aquí si es necesario
                 '}';
     }
 }
+

@@ -24,8 +24,20 @@ public class User {
             generator = "user_sequence"
     )
     private Long id;
+
     @Column(name = "username")
     private String username;
+
     @Column(name = "password")
     private String password;
+
+    // Sobrescribir método toString()
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                // Puedes agregar más campos aquí si es necesario
+                '}';
+    }
 }
